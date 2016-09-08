@@ -127,6 +127,7 @@ bool Student::Datacheck()
 
 void Student::setData()
 {
+	cout << "Enter birth date : " << endl;
 	cin >> data;	
 	while ((Datacheck() == false) || cin.fail()  )	
 	{
