@@ -10,42 +10,113 @@ b)  список учебной группы.
 
 #include "Bomb.h"
 #include <iostream>
-#include <windows.h>
-using namespace std;
+
+using namespace std;\
+
+	/*
+	1. все по условию - Сделано
+	2. set принимает данные - Сделано
+	3. в деструктор строка отработки - Сделано
+	4. динамический массив объектов + ввод количества  - Сделано
+	5. вынести в отдельный метод вывод списа учебной группы и заданного факультета - Сделано
+	*/
+
+	 char name[30];      //	Имя
+	 char surname[30];   //	Фамилия
+	 char patronymic[30];// Отчество
+	 int  id;            //	Айди
+	 char adress[30];    //	Адрес
+	 int  number;        //	Номер телефона
+	 char faculty[30];   //	Факультет
+	 int  course;        //	Номер курса
+	 int  group;         //	Номер группы
+	 void SetMain();
 
 void main()
 {
-	 Student a[2];
-	 char faculty[30]; 
-	 int group ;
+	 setlocale(LC_ALL, "Russian");
 
+	 int n ;
+	 cout<<"set n"<<endl;
+	 cin >> n ;
+	 Student *a;
+	 a = new Student[2];
+	 char faculty2[30]; 
+	 int group2 ;
 	 cout << "Enter the faculty to compare with other: " << endl;
-	 cin >> faculty;
+	 cin >> faculty2;
 
-	 for (int i = 0 ; i < 2 ; i ++)
+	 for (int i = 0 ; i < n ; i ++)
 	 {
 				cout << "--------CREATING A NEW STUDENT--------" << endl;
-				a[i].setAll();
+				SetMain();
+				a[i].setAll(name,surname,patronymic,id,adress,number,faculty,course,group);
 	 }
 
-	  cout <<"\n\n\n"<< faculty << "students" << endl;
-	  for (int i = 0 ; i < 2 ; i ++)
+	  cout <<"\n\n\n"<< faculty2 << "students" << endl;
+	  for (int i = 0 ; i < n ; i ++)
 	  {
-				if ( !strcmp(a[i].getFaculty(),faculty))
-				{
-						a[i].print();
-   				}
+		  a[i].facultyCheck(faculty2);
 	  }
 
 	  cout << "Enter the group number and you'll see a student" << endl;
-	  cin >> group;
-	  for (int i = 0 ; i < 2 ; i ++)
+	  cin >> group2;
+	  for (int i = 0 ; i < n ; i ++)
 	  {
-				if ( a[i].getGroup() == group) 
-				{
-						a[i].print();
-				}
+		  a[i].groupCheck(group2);
 	  }
 
+	  delete [] a;
 	  system("pause");
 }
+
+void SetMain()
+{
+      cout <<"Enter name:"<< endl;
+	  cin >> name;
+	  cout <<"Enter surname:"<< endl;
+	  cin >> surname;
+	  cout <<"Enter patronymic:"<< endl;
+	  cin >> patronymic;
+	  cout <<"Enter id:"<< endl;
+	  cin >> id;
+	  while (id < 0 || cin.fail())	
+	  {
+		  cin.clear();
+		  cin.sync();
+		  cout << "Wrong id, type it again" << endl;
+		  cin >> id;
+	  }
+	  cout <<"Enter adress:"<< endl;
+	  cin >> adress;
+	  cout <<"Enter number:"<< endl;
+	  cin >> number;
+	  	  while (number > 999999 || number < 0 || cin.fail())	
+	  {
+		  cin.clear();
+		  cin.sync();
+		  cout << "Wrong number, type it again" << endl;
+		  cin >> number;
+	  }
+	  cout <<"Enter faculty:"<< endl;
+	  cin >> faculty;
+	  cout <<"Enter course:"<< endl;
+	  cin >> course;
+	  	  while (course < 0|| cin.fail())	
+	  {
+		  cin.clear();
+		  cin.sync();
+		  cout << "Wrong course, type it again" << endl;
+		  cin >> course;
+	  }
+	  cout <<"Enter group:"<< endl;
+	  cin >> group; 
+	  	  while (group < 0 || cin.fail())	
+	  {
+		  cin.clear();
+		  cin.sync();
+		  cout << "Wrong id, type it again" << endl;
+		  cin >> group;
+	  }
+}
+
